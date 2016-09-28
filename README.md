@@ -22,7 +22,9 @@ mvn install
 ```
 4. The target folder will be created. You must to check if the .jar (project) and the lib folder were created in the target folder.
 
-5. Go to the irace folder, open the terminal and execute:
+5. Go to the irace folder;
+6. Create a folder called "execDir";
+7. Open the terminal and execute:
 
 ```R
 R < irace.run.R --no-save

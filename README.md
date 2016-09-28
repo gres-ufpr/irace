@@ -31,9 +31,9 @@ R < irace.run.R --no-save
 
 Or Open the terminal in the irace folder and type R for open it (R program), after:
 
-> Install in R the irace package
-> Type require(irace)
-> Type irace.cmdline("")
+1. Install in R the irace package
+2. Type require(irace)
+3. Type irace.cmdline("")
 
 # Tips
 

@@ -1,0 +1,53 @@
+#!/bin/bash
+
+###############################################################################
+# This hook is run for each candidate to evaluate it after all
+# candidate configurations have been run on a single instance.
+#
+#
+# PARAMETERS:
+# $1 is the instance name
+# $2 is the candidate number (id)
+# $3 is the total number of candidates alive in this iteration
+#
+# RETURN VALUE:
+# This hook should print one numerical value: the cost that must be minimized.
+# Exit with 0 if no error, with 1 in case of error
+#
+## ----> Leave a blank line in the end like EOF <----
+###############################################################################
+
+#-- The instance name and the candidate id are the first parameters
+INSTANCE="$1"
+CANDIDATE="$2"
+TOTALCANDIDATES="$3"
+CURRENT=$(pwd)
+
+HV=c${CANDIDATE}.dat
+LOGS=c${CANDIDATE}.log
+touch ${HV}
+
+# -- What "fixed" parameters should be always passed to program?
+FIXED_PARAMS="--candidateId ${CANDIDATE} --fileName ${HV} --directory \"./\""
+
+# -- Now we can call the program that will evaluate by building a command line with all parameters for it
+java -d64 -Xmx5g -cp "../../target/*:../../target/lib/*" br.ufpr.inf.gres.irace.core.HookEvaluate ${FIXED_PARAMS} > ${LOGS} 2>&1
+
+# Read a number from the output of the evaluation result.
+# It assumes that the objective value is the first number in
+# the first column of the only line starting with a digit.
+if [ -s "${HV}" ]; then
+    COST=$(cat "${HV}" | grep -e '^[0-9]' | cut -f1)
+    # Negative because hypervolume is maximised but irace minimises.
+    echo "-$COST"
+    rm -f c${CANDIDATE}.*
+
+    # -- Delete the unecessary files
+    # Preservo o FUN para cÃƒÂ¡lculo do HV =D FUN_${CANDIDATE}    
+    rm VAR_${CANDIDATE}
+    rm TIME_FUN_${CANDIDATE}
+
+    exit 0
+else
+    error "${HV}: No such file or directory"
+fi

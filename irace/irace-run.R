@@ -1,0 +1,2 @@
+library(irace)
+irace.cmdline("")

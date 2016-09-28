@@ -1,0 +1,71 @@
+#!/bin/bash 
+
+###############################################################################
+# This hook is the command that is executed every run.
+#
+# This hook is run in the execution directory (execDir, --exec-dir),
+# the same directory where hook-evaluate is executed. Hence, you may
+# need to copy extra files needed by the executable to this directory.
+#
+#
+# PARAMETERS:
+# $1 is the instance name
+# $2 is the candidate number (id)
+# The rest are parameters to the run
+#
+# RETURN VALUE:
+# This hook should print one numerical value: the cost that must be minimized.
+# Exit with 0 if no error, with 1 in case of error
+#
+## ----> Leave a blank line in the end like EOF <----
+###############################################################################
+
+# -- The instance name and the candidate id are the first parameters
+INSTANCE="$1"
+CANDIDATE="$2"
+
+# -- What "fixed" parameters should be always passed to program?
+FIXED_PARAMS="--candidateId ${CANDIDATE} --directory \"./\""
+
+#-- All other parameters are the candidate parameters to be passed to program
+shift 2 || exit 1
+CAND_PARAMS=$*
+
+LOGS=c${CANDIDATE}.log
+
+# We use 'exec' to avoid creating another process. There can be no
+# other commands after exec.
+exec qsub <<EOF
+
+###############################################################################
+## qsub parameters
+#$ -S /bin/bash
+
+## Execute the job from the current working  directory
+#$ -cwd
+
+#$ -l h_rt=2400:00:00
+
+## Specifies whether or not the standard error stream of the job is 
+# merged into the standard output stream
+#$ -j y
+
+## Defines or redefines a list of cluster queues
+##$ -q loki.q,pegasus.q,libra.q,gemini.q
+#$ -q pegasus.q,loki.q
+
+##- Array of identical tasks
+##$ -t 1-30:1
+
+## The path used for the standard output stream of the job
+##$ -o /dev/null
+
+## current job name
+#$ -N c$CANDIDATE.irace-$PPID
+###############################################################################
+
+# -- Now we can call the program by building a command line with all parameters for it
+java -d64 -Xmx10g -cp "../../target/*:../../target/lib/*" br.ufpr.inf.gres.irace.core.HookRun ${FIXED_PARAMS} ${CAND_PARAMS} > ${LOGS} 2>&1
+exit $?
+
+EOF

@@ -1,0 +1,39 @@
+#!/bin/bash 
+
+###############################################################################
+# This hook is the command that is executed every run.
+#
+# This hook is run in the execution directory (execDir, --exec-dir),
+# the same directory where hook-evaluate is executed. Hence, you may
+# need to copy extra files needed by the executable to this directory.
+#
+#
+# PARAMETERS:
+# $1 is the instance name
+# $2 is the candidate number (id)
+# The rest are parameters to the run
+#
+# RETURN VALUE:
+# This hook should print one numerical value: the cost that must be minimized.
+# Exit with 0 if no error, with 1 in case of error
+#
+## ----> Leave a blank line in the end like EOF <----
+###############################################################################
+
+# -- The instance name and the candidate id are the first parameters
+INSTANCE="$1"
+CANDIDATE="$2"
+
+# -- What "fixed" parameters should be always passed to program?
+FIXED_PARAMS="--candidateId ${CANDIDATE} --directory \"./\""
+
+#-- All other parameters are the candidate parameters to be passed to program
+shift 2 || exit 1
+CAND_PARAMS=$*
+
+LOGS=c${CANDIDATE}.log
+
+# -- Now we can call the program by building a command line with all parameters for it
+java -d64 -Xmx10g -cp "../../target/*:../../target/lib/*" br.ufpr.inf.gres.irace.core.HookRun ${FIXED_PARAMS} ${CAND_PARAMS} > ${LOGS} 2>&1
+
+exit $?

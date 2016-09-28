@@ -1,8 +1,7 @@
 # irace
 ## A simple example for the IRACE application with Java programs
 
-[![Gittip](https://img.shields.io/badge/Latest%20stable-2.0-green.svg?style=flat-squared)]()
-
+[![Gittip](https://img.shields.io/badge/Latest%20stable-1.0-green.svg?style=flat-squared)]()
 [![Gittip](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
 # Requirements
@@ -89,5 +88,5 @@ The results will appear in tunningResults folder.
 
 # Screenshots
 
-[!Using irace-run.R script](http://i.imgur.com/XbxFOby.png)
-[!IRACE running](http://i.imgur.com/YwvokQb.png)
+![Using irace-run.R script](http://i.imgur.com/XbxFOby.png)
+![IRACE running](http://i.imgur.com/YwvokQb.png)

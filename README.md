@@ -9,7 +9,14 @@
 - Java 1.7 or above to run
 - Maven >= 3.3.9
 - R >= 3.3.0
-- IRACE (R package) >= 1.07
+- IRACE (R package) = 1.07
+
+Try execute the command above for install the irace specific version in R:
+
+```
+require(devtools)
+install_version("irace", version = "1.07", repos = "http://cran.us.r-project.org")
+```
 
 # How do I start?
 

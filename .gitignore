@@ -1,2 +1,9 @@
+# Byte-compiled / optimized / DLL files
+
+# Java
 /target/
 /nbproject/
+
+# Python
+__pycache__/
+*.py[cod]

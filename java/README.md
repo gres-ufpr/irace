@@ -100,3 +100,7 @@ The results will appear in tunningResults folder.
 
 ![Using irace-run.R script](http://i.imgur.com/XbxFOby.png)
 ![IRACE running](http://i.imgur.com/YwvokQb.png)
+
+# irace overview
+
+![irace overview](images/irace_process)

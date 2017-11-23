@@ -103,4 +103,4 @@ The results will appear in tunningResults folder.
 
 # irace overview
 
-![irace overview](images/irace_process)
+![irace overview](images/irace_process.png)

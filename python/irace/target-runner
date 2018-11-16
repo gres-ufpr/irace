@@ -16,7 +16,7 @@
 # This script should print one numerical value: the cost that must be minimized.
 # Exit with 0 if no error, with 1 in case of error
 ###############################################################################
-EXE=../../main.py
+EXE=../main.py
 
 CONFIG_ID=$1
 INSTANCE_ID=$2

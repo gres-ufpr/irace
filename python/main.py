@@ -22,7 +22,7 @@ __version__ = "1.0"
 
 # Split my data in 3 set with same size: Train, Test, and Validation.
 # Train and Validation are used in the fitness function, after all, the Test dataset is used to evaluate the best individual
-features, labels = load_svmlight_file("../../../data/data")
+features, labels = load_svmlight_file("../data/data")
 
 x, X_test, y, y_test = train_test_split(features, labels, test_size=0.3333, random_state=42, stratify=labels)
 X_train, X_cv, y_train, y_cv = train_test_split(x, y, test_size=0.5, train_size=0.5, random_state=42, stratify=y)

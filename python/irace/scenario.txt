@@ -10,7 +10,7 @@
 parameterFile = "./parameters.txt"
 
 ## Directory where the programs will be run.
-execDir = "./execDir"
+execDir = "."
 
 ## File to save tuning results as an R dataset, either absolute path
 ## or relative to execDir.
